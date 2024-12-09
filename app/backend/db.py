@@ -2,7 +2,7 @@ from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, Asyn
 from sqlalchemy.orm import DeclarativeBase
 
 engine = create_async_engine(
-    "postgresql+asyncpg://pizza:your_password@db:5432/pizza_auth", echo=True
+    "postgresql+asyncpg://pizza:hjuLwoEU6mspTMOUVfYQNiP6EW4Ac5Ml@dpg-ctbmtl56l47c73b2tslg-a.frankfurt-postgres.render.com/pizza_bw1h", echo=True
 )
 async_session_maker = async_sessionmaker(
     engine, expire_on_commit=False, class_=AsyncSession
