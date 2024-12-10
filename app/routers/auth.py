@@ -27,12 +27,14 @@ async def create_access_token(
     user_id: int,
     is_admin: bool,
     expires_delta: timedelta,
+    address: str,
 ):
     encode = {
         "first_name": first_name,
         "last_name": last_name,
         "id": user_id,
         "is_admin": is_admin,
+        "address": address,
     }
 
     expires = datetime.utcnow() + expires_delta
@@ -47,6 +49,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
         first_name: str = payload.get("first_name")
         last_name: str = payload.get("last_name")
         is_admin: bool = payload.get("is_admin")
+        address: str = payload.get("address")
         expire = payload.get("exp")
         if first_name is None or user_id is None:
             raise HTTPException(
@@ -68,6 +71,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
             "first_name": first_name,
             "last_name": last_name,
             "is_admin": is_admin,
+            "address": address,
         }
     except JWTError:
         raise HTTPException(
@@ -85,6 +89,7 @@ async def create_user(
             last_name=create_user.last_name,
             email=create_user.email,
             hashed_password=bcrypt_context.hash(create_user.password),
+            address=create_user.address,
             is_admin=create_user.email == "admin"
         )
     )
@@ -117,6 +122,7 @@ async def login(
         last_name=user.last_name,
         user_id=user.id,
         is_admin=user.is_admin,
+        address=user.address,
         expires_delta=timedelta(minutes=60),
     )
     return {"access_token": token, "token_type": "bearer"}
