@@ -9,7 +9,8 @@ origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://pizza-auth-service.onrender.com",
-    "https://pizza-catalog-service.onrender.com"
+    "https://pizza-catalog-service.onrender.com",
+    "https://pizza-build.onrender.com/"
 ]
 
 app.add_middleware(
